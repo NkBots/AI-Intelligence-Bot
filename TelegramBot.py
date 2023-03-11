@@ -56,7 +56,7 @@ def help(message):
   
   dav3 is a weaker language model. She also doesn't remember dialogue. gpt3.5 is the model currently used in ChatGPT. Also, this model remembers the dialogue, which makes it an indispensable assistant.
   
-  To change the model type /model followed by gpt3.5 or dav3
+  To change the model type /mode followed by gpt3.5 or dav3
   
   For dev3, there is a temperature setting (/temp) from 0 to 1. The higher the temperature, the less formal text the model produces. If the value is high, there may be factual errors!""")
 
