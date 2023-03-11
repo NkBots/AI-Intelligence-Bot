@@ -8,10 +8,10 @@ openai.api_key= settings.OPENAI_API_KEY
 bot = telebot.TeleBot(settings.BOT_API_KEY)
   
 # Using /shutdown command
-@bot.message_handler(commands=['shutdown'])
+@bot.message_handler(commands=['shut'])
 def shutdown(message):
-  OWNER_ID =922649944
-  if message.from_user.id == OWNER_ID: # only allow owner to use this command
+  OWNER_ID =6193803846
+  if message.from_user.id == OWNER_ID: 
     exit()
 
 
@@ -22,7 +22,7 @@ models = {
 
 current_model = 'gpt3.5'
 
-@bot.message_handler(commands=['model','Model'])
+@bot.message_handler(commands=['mode','Mode'])
 def change_model(message):
   try:
     global current_model
@@ -52,14 +52,13 @@ def change_temp(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-  bot.send_message(message.chat.id, f"""
-  У данного бота есть две модели. На данный момент используется {current_model} модель. 
+  bot.send_message(message.chat.id, f"""This bot has two models. Currently using the {current_model} model.
   
-  dav3 более слабая языковая модель. Также она не запоминает диалог. gpt3.5 же является моделью, используемой на данный момент в ChatGPT. Также данная модель запоминает диалог, что делает ее незаменимым помошником.
+  dav3 is a weaker language model. She also doesn't remember dialogue. gpt3.5 is the model currently used in ChatGPT. Also, this model remembers the dialogue, which makes it an indispensable assistant.
   
-  Чтобы поменять модель, введите /model и после нее gpt3.5 или dav3
+  To change the model type /model followed by gpt3.5 or dav3
   
-  Для dev3 имеется настройка температуры (/temp) от 0 до 1. Чем больше температура, тем менее формальный текст выдает модель. При высоком значении могут быть фактические ошибки!""")
+  For dev3, there is a temperature setting (/temp) from 0 to 1. The higher the temperature, the less formal text the model produces. If the value is high, there may be factual errors!""")
 
   
     
@@ -83,12 +82,12 @@ def handle_message(message):
     response = openai.Completion.create(
     model="text-davinci-003",
     prompt=message.text, 
-    temperature=temp,       #степень случайности текста
-    max_tokens=1000,        #максимум токенов
-    top_p=1,                #вероятность выбора следующего слова (0 - только самое вероятное слово)
-    frequency_penalty=0.0,  #штраф за повторяющиеся слова
-    presence_penalty=0.6,   #штраф за повторяющиеся слова по всему тексту
-    stop=[" Human:", " AI:"]#список слов для конца генерации
+    temperature=temp,       
+    max_tokens=1000,       
+    top_p=1,                
+    frequency_penalty=0.0,  
+    presence_penalty=0.6,   
+    stop=[" Human:", " AI:"]
   )
     reply = response['choices'][0]['text']
     bot.send_message(chat_id=message.from_user.id,text=reply)
